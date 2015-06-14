@@ -1,0 +1,23 @@
+import FreeCAD
+import FreeCADGui
+from fcso.hex_head_screw import PartialHexScrewISO4014
+
+
+def make_hex_head_screw():
+    doc = FreeCAD.activeDocument()
+    if doc is None:
+        doc = FreeCAD.newDocument()
+    # add object to document:
+    obj = doc.addObject("Part::FeaturePython", "PartialHexScrewISO4014")
+    obj.Label = "HexHeadScrew"
+    PartialHexScrewISO4014(obj)
+    obj.ViewObject.Proxy = 0
+    view_object = FreeCADGui.ActiveDocument.getObject(obj.Name)
+    view_object.ShapeColor = (0.7, 0.7, 0.7)
+    view_object.DisplayMode = "Flat Lines"
+    obj.Shape.check()
+
+
+if __name__ == "__main__":
+    # feature will be generated after macro execution
+    make_hex_head_screw()
